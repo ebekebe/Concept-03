@@ -4,33 +4,37 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public float jumpSpeed = 5f;
+    
     Rigidbody rb;
 
-    Swipe swipeControls;
+    SwipeBehaviour swipeControls;
 
-	void Start () {
+    public float attackRange;
+    public float jumpSpeed = 5f;
+
+    int enemyMask;
+
+    bool grounded;
+
+    void Start () {
 
         rb = GetComponent<Rigidbody>();
-        swipeControls = GetComponent<Swipe>();
-
+        swipeControls = GetComponent<SwipeBehaviour>();
+        enemyMask = LayerMask.GetMask("Enemy");
 	}
 	
 	void Update () {
 
-        if(Input.GetMouseButtonDown(0))
+        if (swipeControls.tap)
         {
             rb.velocity = Vector3.up * jumpSpeed;
+            swipeControls.tap = false;
         }
 
-        if (swipeControls.SwipeDown)
-            Debug.Log("swipeDown");
-        if (swipeControls.SwipeUp)
-            Debug.Log("swipeUp");
-        if (swipeControls.SwipeLeft)
-            Debug.Log("swipeLeft");
-        if (swipeControls.SwipeRight)
-            Debug.Log("swipeRight");
-
+        if (Physics.Raycast(transform.position, Vector3.right, attackRange, enemyMask))
+        {
+            Debug.Log("enemyInRange");
+        }
     }
+
 }
