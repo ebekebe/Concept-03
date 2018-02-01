@@ -85,10 +85,11 @@ public class SwipeBehaviour : MonoBehaviour
                 float y = swipeDelta.y;
                 if (Mathf.Abs(x) > Mathf.Abs(y))
                 {
-                    if (x < 0)
-                        Debug.Log("swipedLeft");
-                    else
-                        Debug.Log("swipedRight");
+                if (x < 0)
+                    Debug.Log("swipedLeft");
+                else
+                    Debug.Log("swipedRight");
+                    swipeRight = true;
                 }
                 else
                 {

@@ -51,11 +51,22 @@ public class PlayerController : MonoBehaviour {
         {
             Jump();
         }
-
-        if (Physics.Raycast(transform.position, Vector3.right, attackRange, enemyMask))
+        if (swipeControls.swipeRight)
         {
-            Debug.Log("enemyInRange");
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.right, out hit, attackRange, enemyMask))
+            {
+                Debug.Log("meleeAttack " + hit.transform.name);
+                hit.transform.GetComponent<Enemy>().TakeDamage(20);
+                
+            }
+            else
+            {
+                Debug.Log("rangedAttack");
+            }
+            swipeControls.swipeRight = false;
         }
+        
     }
 
     void Jump()
