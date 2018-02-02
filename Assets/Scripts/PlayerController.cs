@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    
+
     Rigidbody rb;
 
     TouchControls touchControls;
@@ -16,35 +16,37 @@ public class PlayerController : MonoBehaviour {
 
     int enemyMask;
 
-    [SerializeField]LayerMask Ground;
+    [SerializeField] LayerMask Ground;
     Transform groundCheck;
     float groundedRadius;
     bool grounded;
 
-    void Start () {
+    void Start ()
+    {
 
         rb = GetComponent<Rigidbody>();
         touchControls = GetComponent<TouchControls>();
         enemyMask = LayerMask.GetMask("Enemy");
         groundCheck = transform.Find("groundCheck");
-	}
+    }
 
     void FixedUpdate()
     {
         grounded = false;
         Collider[] colliders = Physics.OverlapSphere(groundCheck.position, groundedRadius, Ground);
-        for(int i=0; i < colliders.Length; i++)
+        for (int i = 0; i<colliders.Length; i++)
         {
-            if (colliders[i].gameObject != gameObject)
+            if (colliders[i].gameObject!=gameObject)
             {
                 grounded = true;
             }
         }
     }
-	
-	void Update () {
+
+    void Update ()
+    {
         //Debug.Log(grounded);
-        if(touchControls.tap && !grounded)
+        if (touchControls.tap && !grounded)
         {
             touchControls.tap = false;
         }
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Debug.Log("meleeAttack " + hit.transform.name);
                 hit.transform.GetComponent<Enemy>().TakeDamage(20);
-                
+
             }
             else
             {
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour {
             }
             touchControls.swipeRight = false;
         }
-        
+
     }
 
     void Jump()

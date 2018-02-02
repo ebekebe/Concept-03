@@ -18,14 +18,15 @@ public class Enemy : MonoBehaviour {
     LayerMask playerMask;
 
     public float attackRange;
-    
 
-	void Start () {
+
+    void Start ()
+    {
         timer = 0;
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("player");
-	}
+    }
 
     void Update()
     {
@@ -51,11 +52,11 @@ public class Enemy : MonoBehaviour {
 
     void Move()
     {
-        if((transform.position.x -player.transform.position.x) >= attackRange-1)
+        if ((transform.position.x - player.transform.position.x) >= attackRange - 1)
         {
             transform.position += -Vector3.right * moveSpeed * Time.deltaTime;
         }
-        
+
     }
 
 

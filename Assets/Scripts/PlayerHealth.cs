@@ -10,15 +10,17 @@ public class PlayerHealth : MonoBehaviour {
 
     Slider healthSlider;
 
-	void Start () {
+    void Start ()
+    {
 
         currentHealth = maxHealth;
         healthSlider = GameObject.Find("Canvas/Slider").GetComponent<Slider>();
         healthSlider.value = currentHealth;
 
     }
-	
-	void Update () {
+
+    void Update ()
+    {
 
         healthSlider.value = currentHealth;
         if(currentHealth<=0)
@@ -26,8 +28,8 @@ public class PlayerHealth : MonoBehaviour {
 
             Death();
         }
-		
-	}
+
+    }
 
     public void TakeDamage(int damage)
     {
