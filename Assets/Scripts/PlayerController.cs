@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour {
     
     Rigidbody rb;
 
-    SwipeBehaviour swipeControls;
+    TouchControls touchControls;
 
     public float attackRange;
     public float jumpSpeed = 5f;
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
     void Start () {
 
         rb = GetComponent<Rigidbody>();
-        swipeControls = GetComponent<SwipeBehaviour>();
+        touchControls = GetComponent<TouchControls>();
         enemyMask = LayerMask.GetMask("Enemy");
         groundCheck = transform.Find("groundCheck");
 	}
@@ -43,15 +43,16 @@ public class PlayerController : MonoBehaviour {
     }
 	
 	void Update () {
-        if(swipeControls.tap && !grounded)
+        //Debug.Log(grounded);
+        if(touchControls.tap && !grounded)
         {
-            swipeControls.tap = false;
+            touchControls.tap = false;
         }
-        if (swipeControls.tap && grounded)
+        if (touchControls.tap && grounded)
         {
             Jump();
         }
-        if (swipeControls.swipeRight)
+        if (touchControls.swipeRight)
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.right, out hit, attackRange, enemyMask))
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Debug.Log("rangedAttack");
             }
-            swipeControls.swipeRight = false;
+            touchControls.swipeRight = false;
         }
         
     }
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour {
     void Jump()
     {
         rb.velocity = Vector3.up * jumpSpeed;
-        swipeControls.tap = false;
+        touchControls.tap = false;
     }
 
 }
